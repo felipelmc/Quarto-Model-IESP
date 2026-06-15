@@ -1,0 +1,149 @@
+---
+# IESP-UERJ dissertation/thesis template (ABNT) — English example.
+# Write the document in English; a Portuguese "Resumo" is still required by ABNT.
+# Render with:  quarto render main-en.qmd
+format:
+  iesp-uerj-pdf: default
+
+# ---- Document language: English labels (Contents, References, ...) ----
+lang-en: true
+
+# ---- Institution ----
+university: "Universidade do Estado do Rio de Janeiro"
+inst-center: "Centro de Ciências Sociais"
+unit: "Instituto de Estudos Sociais e Políticos"
+
+# ---- Authorship ----
+author-first: "First name"
+author-last: "Last name"
+author-abbrev: "F."    # initial(s) of the first name, e.g. "F." or "F. L."
+
+# ---- Title ----
+title: "Title of the dissertation or thesis"   # cover + Abstract header (main lang)
+title-en: "Título da dissertação ou tese"      # Resumo (PT) header
+
+# ---- Degree and program ----
+degree: "Mestre"             # Mestre | Doutor | Bacharel | Licenciado (class keyword)
+program: "Ciência Política"  # Ciência Política | Sociologia
+
+# ---- Date and place ----
+city: "Rio de Janeiro"
+day: "dd"
+month: "month"
+year: "yyyy"
+
+# ---- Advisor ----
+advisor:
+  title: "Prof. Dr."
+  first: "First name"
+  last: "Last name"
+  institution: "Instituto de Estudos Sociais e Políticos -- UERJ"
+
+# ---- Co-advisor (optional) ----
+# co-advisor:
+#   title: "Prof. Dr."
+#   first: "First name"
+#   last: "Last name"
+#   institution: "Institution -- UERJ"
+
+# ---- Keywords (always 4 slots per language; use "" for empty) ----
+kw-pt-1: "Primeira palavra-chave"
+kw-pt-2: "Segunda palavra-chave"
+kw-pt-3: "Terceira palavra-chave"
+kw-pt-4: ""
+
+kw-en-1: "First keyword"
+kw-en-2: "Second keyword"
+kw-en-3: "Third keyword"
+kw-en-4: ""
+
+# ---- Examination board (optional; max 6 members) ----
+banca:
+  - name: "First board member"
+    institution: "Institution"
+  - name: "Second board member"
+    institution: "Institution"
+  - name: "Third board member"
+    institution: "Institution"
+
+# ---- Pre-textual elements ----
+dedicatoria: "Dedication text."
+
+agradecimentos: |
+  Acknowledgements text.
+
+  This study was financed in part by the Coordenação de Aperfeiçoamento de
+  Pessoal de Nível Superior Brasil (CAPES) --- Finance Code 001.
+
+# epigrafe: "Epigraph text. (Author)"
+
+# Abstract in the document language (English): comes first in an English thesis.
+abstract: |
+  Abstract text in English. The abstract should contain between 150 and 500
+  words according to UERJ standards.
+
+# Resumo in Portuguese: required by ABNT even for theses written in English.
+resumo: |
+  Texto do resumo em português. O resumo deve conter entre 150 e 500
+  palavras conforme as normas da UERJ.
+
+# ---- Nature of the work on the title page (English text) ----
+thesis-nature: |
+  Dissertation presented, as a partial requirement for obtaining the degree
+  of Master, to the Graduate Program in Political Science, Universidade do
+  Estado do Rio de Janeiro.
+
+# ---- Optional lists (same keys as the Portuguese model) ----
+# abreviaturas:
+#   - sigla: "CAPES"
+#     extenso: "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior"
+# simbolos:
+#   - simbolo: "$\\alpha$"
+#     significado: "Significance level"
+# glossario:
+#   - termo: "term"
+#     definicao: "meaning of the term"
+# apendices:
+#   - titulo: "First appendix"
+#     conteudo: "Appendix content."
+# anexos:
+#   - titulo: "First annex"
+#     conteudo: "Annex content."
+
+# ---- Bibliography (citeproc + ABNT CSL NBR 6023:2018 / 10520:2023) ----
+bibliography: bibliografia.bib
+---
+
+# Introduction {.unnumbered}
+
+Introduction text [@bib:Amado1991]. In-text citation: @bib:Andrade1997
+argues that text text.
+
+# Chapter 1 title
+
+Chapter text.
+
+## Secondary section
+
+Section text with a citation [@bib:Bernstein1997].
+
+### Tertiary section
+
+Subsection text.
+
+#### Quaternary section
+
+Sub-subsection text.
+
+# Chapter 2 title
+
+Second chapter text.
+
+# Conclusion {.unnumbered}
+
+Conclusion text.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

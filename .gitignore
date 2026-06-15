@@ -1,0 +1,26 @@
+# Artefatos de render do Quarto
+/.quarto/
+*_files/
+
+# Cópias do "motor" geradas por format-resources a cada render
+# (os originais ficam versionados em _extensions/iesp-uerj/)
+/repUERJ.cls
+/repUERJformat.sty
+/repUERJpseudocode.sty
+/logo_uerj_cinza.png
+/marcadagua_uerj_cinza.png
+
+# Auxiliares LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.idx
+*.ilg
+*.ind
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk

@@ -1,0 +1,22 @@
+title: IESP-UERJ — Dissertações e Teses (ABNT)
+author: Port para Quarto por Felipe Lamarca; modelo LaTeX original de Mateus Pestana (https://github.com/mateuspestana/modelo_latex_iespuerj)
+version: 1.0.0
+quarto-required: ">=1.4.0"
+contributes:
+  formats:
+    pdf:
+      # Template Pandoc/LaTeX e estilo de citação ABNT (NBR 6023:2018 + 10520:2023)
+      template: template.tex
+      csl: abnt.csl
+      # Motor: repUERJ usa mathptmx/inputenc (específico do pdflatex)
+      pdf-engine: pdflatex
+      # # -> \chapter, ## -> \section, ...
+      top-level-division: chapter
+      number-sections: true
+      # Arquivos copiados para o diretório de render (encontrados pelo pdflatex)
+      format-resources:
+        - repUERJ.cls
+        - repUERJformat.sty
+        - repUERJpseudocode.sty
+        - logo_uerj_cinza.png
+        - marcadagua_uerj_cinza.png

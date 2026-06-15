@@ -1,0 +1,390 @@
+%% Template Pandoc/Quarto para dissertações e teses do IESP-UERJ
+%% =============================================================================
+%% Modelo LaTeX original (classe repUERJ) por Mateus Pestana:
+%%   https://github.com/mateuspestana/modelo_latex_iespuerj
+%% Classe repUERJ derivada do trabalho do Prof. Luís Fernando de Oliveira.
+%% Port para Quarto (extensão iesp-uerj): este arquivo.
+%%
+%% Conformidade ABNT: NBR 14724:2024 (apresentação), NBR 6023:2018 (referências)
+%% e NBR 10520:2023 (citações — autor em inicial maiúscula no texto). As citações
+%% são processadas pelo citeproc do Quarto usando a CSL abnt.csl (não usar
+%% abntex2cite/BibTeX).
+%%
+%% Idioma: a flag YAML `lang-en: true` ativa os rótulos em inglês.
+%% =============================================================================
+
+\documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{repUERJ}
+
+% ---------------------------------------------------------------
+% Idioma (babel). repUERJformat também requer [brazil]; carregamos antes
+% para definir o idioma principal. brazil é sempre incluído (Resumo em PT).
+% ---------------------------------------------------------------
+$if(lang-en)$
+\usepackage[brazil,main=english]{babel}
+$else$
+\usepackage[brazil]{babel}
+$endif$
+
+% ---------------------------------------------------------------
+% Pacotes UERJ
+% ---------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{subfiles}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{gensymb}
+\usepackage{makecell}
+\usepackage[frame=no,algline=yes,font=times]{repUERJformat}
+\usepackage{repUERJpseudocode}
+
+% ---------------------------------------------------------------
+% Hyperref
+% ---------------------------------------------------------------
+\usepackage{hyperref}
+\definecolor{blue}{RGB}{41,5,195}
+\hypersetup{
+  unicode=false,
+  pdftitle={$title$},
+  pdfauthor={$author-first$ $author-last$},
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  filecolor=black,
+  urlcolor=black,
+  bookmarksdepth=4
+}
+
+% ---------------------------------------------------------------
+% Rótulos em inglês (quando lang-en). repUERJformat define os rótulos PT
+% via \addto\captionsbrazil; aqui fazemos o equivalente para o inglês.
+% ---------------------------------------------------------------
+$if(lang-en)$
+\addto\captionsenglish{%
+  \renewcommand\contentsname{Contents}%
+  \renewcommand{\listfigurename}{List of Illustrations}%
+  \renewcommand{\listtablename}{List of Tables}%
+  \renewcommand\bibname{References}%
+  \renewcommand\indexname{Index}%
+  \renewcommand\figurename{Figure}%
+  \renewcommand\legendname{Legend}%
+  \renewcommand\sourcename{Source}%
+  \renewcommand\tablename{Table}%
+  \renewcommand\appendixname{Appendix}%
+  \renewcommand\annexname{Annex}%
+}
+\renewcommand{\abrevnome}{List of Abbreviations}
+\renewcommand{\simbnome}{List of Symbols}
+% Rótulo do orientador na folha de rosto (a folha de aprovação e a ficha
+% catalográfica permanecem em PT, por convenção de documento institucional).
+\renewcommand{\orientadornome}{Advisor}
+\renewcommand{\coorientadornome}{Co-advisor}
+$endif$
+
+% ---------------------------------------------------------------
+% Correção de entradas duplicadas no Sumário para \chapter* :
+% repUERJ's \@schapter já adiciona entrada com \bf\uppercase ao TOC.
+% Pandoc também adiciona \addcontentsline após \chapter*, gerando
+% duplicata em caixa normal. Suprimimos a chamada extra do Pandoc
+% com uma flag que é ativada após \@schapter processar a sua entrada.
+% ---------------------------------------------------------------
+\makeatletter
+\newif\if@uerj@suppress@nexttoc
+\@uerj@suppress@nexttocfalse
+
+\let\@uerj@orig@schapter\@schapter
+\def\@schapter#1{%
+  \@uerj@orig@schapter{#1}%
+  \@uerj@suppress@nexttoctrue
+}
+
+\let\@uerj@orig@addcontentsline\addcontentsline
+\def\addcontentsline#1#2#3{%
+  \if@uerj@suppress@nexttoc
+    \@uerj@suppress@nexttocfalse
+  \else
+    \@uerj@orig@addcontentsline{#1}{#2}{#3}%
+  \fi
+}
+\makeatother
+
+% ---------------------------------------------------------------
+% Compatibilidade Pandoc
+% ---------------------------------------------------------------
+
+% Listas compactas geradas pelo Pandoc
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Suporte a URLs longas
+\usepackage{xurl}
+
+% Bloco verbatim (necessário para código)
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+
+% Destaque de sintaxe (Pandoc --highlight-style)
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Lista de referências do citeproc (ambiente CSLReferences) — bloco canônico Quarto
+$if(csl-refs)$
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+% ---------------------------------------------------------------
+% Metadados UERJ (lidos do YAML front matter)
+% ---------------------------------------------------------------
+
+\logo{logo_uerj_cinza.png}
+\marcadagua{marcadagua_uerj_cinza.png}{1}{160}{255}
+
+\instituicao{$university$}
+            {$inst-center$}
+            {$unit$}
+            {}
+
+\autor{$author-first$}
+      {$author-last$}
+      {$author-abbrev$}
+
+\titulo{$title$}
+\title{$title-en$}
+
+\palavraschaves{$kw-pt-1$}
+               {$kw-pt-2$}
+               {$kw-pt-3$}
+               {$kw-pt-4$}
+
+\keywords{$kw-en-1$}
+         {$kw-en-2$}
+         {$kw-en-3$}
+         {$kw-en-4$}
+
+\orientador{$advisor.title$}
+           {$advisor.first$}
+           {$advisor.last$}
+           {$advisor.institution$}
+
+$if(co-advisor)$
+\coorientador{$co-advisor.title$}
+             {$co-advisor.first$}
+             {$co-advisor.last$}
+             {$co-advisor.institution$}
+$endif$
+
+\grau{$degree$}
+\curso{$program$}
+
+\local{$city$}
+\data{$day$}{$month$}{$year$}
+
+$if(thesis-nature)$
+% Natureza do trabalho (folha de rosto). Se ausente, usa o texto padrão da classe.
+\preambulo{$thesis-nature$}
+$endif$
+
+$if(lang-en)$
+% Documento em inglês: o cabeçalho ABNT do Resumo (PT) usa o título em português
+% (\UERJtitle = title-en) e o do Abstract (EN) usa o título em inglês
+% (\UERJtitulo = title). A capa usa \UERJtitulo (inglês).
+\cabecalho{\MakeUppercase{\UERJautorsobrenome}, \UERJautornomeabvr\ \emph{\UERJtitle}. \UERJano. \UERJpaginas\ f. \UERJdocumento\ (\UERJgrau\ em \UERJcurso) -- \UERJunidade, \UERJnome, \UERJlocal, \UERJano.}
+\headertext{\MakeUppercase{\UERJautorsobrenome}, \UERJautornomeabvr\ \emph{\UERJtitulo}. \UERJano. \UERJpaginas\ f. \UERJdocumento\ (\UERJgrau\ em \UERJcurso) -- \UERJunidade, \UERJnome, \UERJlocal, \UERJano.}
+$endif$
+
+% ---------------------------------------------------------------
+% Patch: repUERJ.cls redefine figure e table com {width} obrigatório,
+% incompatível com o output padrão do Pandoc. Restauramos a assinatura
+% LaTeX padrão (apenas [pos] opcional); a largura padrão passa a ser
+% \textwidth. Os estilos de caption (captionsetup{style=uerj}) da
+% classe continuam ativos.
+% ---------------------------------------------------------------
+\renewenvironment{figure}[1][htbp]{%
+  \@float{figure}[#1]%
+  \centering
+}{%
+  \end@float
+}
+
+\renewenvironment{table}[1][htbp]{%
+  \@float{table}[#1]%
+  \centering
+}{%
+  \end@float
+}
+
+\makeindex
+
+% ================================================================
+\begin{document}
+% ================================================================
+
+% ---------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ---------------------------------------------------------------
+\frontmatter
+
+\capa
+\folhaderosto
+\fichacatalografica{}
+
+$if(banca)$
+\begin{folhadeaprovacao}
+$for(banca)$  \assinatura{$banca.name$}{$banca.institution$}
+$endfor$\end{folhadeaprovacao}
+$endif$
+
+$if(dedicatoria)$
+\pretextualchapter{$if(lang-en)$Dedication$else$Dedicatória$endif$}
+
+\vfill
+$dedicatoria$
+$endif$
+
+$if(agradecimentos)$
+\pretextualchapter{$if(lang-en)$Acknowledgements$else$Agradecimentos$endif$}
+
+$agradecimentos$
+$endif$
+
+$if(epigrafe)$
+\pretextualchapter{}
+
+  \vfill
+  \begin{flushright}
+    $epigrafe$
+  \end{flushright}
+$endif$
+
+$if(lang-en)$
+% Em documento inglês, o Abstract (vernáculo do trabalho) vem antes do Resumo (PT).
+\pretextualchapter{Abstract}
+
+\reference
+
+$abstract$\\
+
+\printkeys
+
+\pretextualchapter{Resumo}
+
+\referencia
+
+$resumo$\\
+
+\imprimirchaves
+$else$
+\pretextualchapter{Resumo}
+
+\referencia
+
+$resumo$\\
+
+\imprimirchaves
+
+\pretextualchapter{Abstract}
+
+\reference
+
+$abstract$\\
+
+\printkeys
+$endif$
+
+\listadefiguras
+\listadetabelas
+
+$if(abreviaturas)$
+\pretextualchapter{$if(lang-en)$List of Abbreviations$else$Lista de abreviaturas e siglas$endif$}
+
+$for(abreviaturas)$\abreviatura{$abreviaturas.sigla$}{$abreviaturas.extenso$}
+$endfor$
+$endif$
+
+$if(simbolos)$
+\pretextualchapter{$if(lang-en)$List of Symbols$else$Lista de símbolos$endif$}
+
+$for(simbolos)$\simbolo{$simbolos.simbolo$}{$simbolos.significado$}
+$endfor$
+$endif$
+
+\sumario
+
+% ---------------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% (o corpo termina com a lista de referências — ver main.qmd:
+%  "# Referências" + "::: {#refs} :::")
+% ---------------------------------------------------------------
+\mainmatter
+
+$body$
+
+% ---------------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS (glossário, apêndices, anexos)
+% ---------------------------------------------------------------
+\backmatter
+
+$if(glossario)$
+\postextualchapter*{$if(lang-en)$Glossary$else$Glossário$endif$}
+$for(glossario)$\definicao{$glossario.termo$}{$glossario.definicao$}
+$endfor$
+$endif$
+
+$if(apendices)$
+\appendix
+$for(apendices)$
+\postextualchapter{$apendices.titulo$}
+
+$apendices.conteudo$
+$endfor$
+$endif$
+
+$if(anexos)$
+\annex
+$for(anexos)$
+\postextualchapter{$anexos.titulo$}
+
+$anexos.conteudo$
+$endfor$
+$endif$
+
+\end{document}
