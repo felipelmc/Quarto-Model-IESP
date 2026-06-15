@@ -97,6 +97,22 @@ Portuguese even in the English version.
 | `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Optional lists (see `main-en.qmd`). |
 | `bibliography` | `.bib` file (default: `bibliografia.bib`). |
 
+### Hiding pre-textual pages
+
+To turn off specific pages, uncomment the matching flag in the YAML (all pages are
+on by default):
+
+```yaml
+hide-ficha: true            # cataloguing sheet (ficha catalográfica)
+hide-banca: true            # approval sheet (folha de aprovação)
+hide-dedicatoria: true      # dedication
+hide-agradecimentos: true   # acknowledgements
+```
+
+> The approval sheet, dedication and acknowledgements also disappear automatically
+> if you drop the `banca`, `dedicatoria` or `agradecimentos` fields. The `hide-*`
+> flags let you turn them off while keeping the content in the file.
+
 ### Citations
 
 Use Pandoc citation syntax with the `.bib` keys:

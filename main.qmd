@@ -63,6 +63,12 @@ banca:
   - name: "Terceiro membro titular da banca"
     institution: "Instituição"
 
+# ---- Ocultar páginas pré-textuais (opcional; descomente para desativar) ----
+# hide-ficha: true            # ficha catalográfica
+# hide-banca: true            # folha de aprovação (banca examinadora)
+# hide-dedicatoria: true      # dedicatória
+# hide-agradecimentos: true   # agradecimentos
+
 # ---- Elementos pré-textuais ----
 dedicatoria: "Texto da dedicatória."
 

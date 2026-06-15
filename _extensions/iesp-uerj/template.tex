@@ -265,26 +265,28 @@ $endif$
 
 \capa
 \folhaderosto
+$if(hide-ficha)$$else$
 \fichacatalografica{}
+$endif$
 
-$if(banca)$
+$if(banca)$$if(hide-banca)$$else$
 \begin{folhadeaprovacao}
 $for(banca)$  \assinatura{$banca.name$}{$banca.institution$}
 $endfor$\end{folhadeaprovacao}
-$endif$
+$endif$$endif$
 
-$if(dedicatoria)$
+$if(dedicatoria)$$if(hide-dedicatoria)$$else$
 \pretextualchapter{$if(lang-en)$Dedication$else$Dedicatória$endif$}
 
 \vfill
 $dedicatoria$
-$endif$
+$endif$$endif$
 
-$if(agradecimentos)$
+$if(agradecimentos)$$if(hide-agradecimentos)$$else$
 \pretextualchapter{$if(lang-en)$Acknowledgements$else$Agradecimentos$endif$}
 
 $agradecimentos$
-$endif$
+$endif$$endif$
 
 $if(epigrafe)$
 \pretextualchapter{}

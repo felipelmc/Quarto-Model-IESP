@@ -66,6 +66,12 @@ banca:
   - name: "Third board member"
     institution: "Institution"
 
+# ---- Hide pre-textual pages (optional; uncomment to turn off) ----
+# hide-ficha: true            # cataloguing sheet (ficha catalográfica)
+# hide-banca: true            # approval sheet (folha de aprovação)
+# hide-dedicatoria: true      # dedication
+# hide-agradecimentos: true   # acknowledgements
+
 # ---- Pre-textual elements ----
 dedicatoria: "Dedication text."
 

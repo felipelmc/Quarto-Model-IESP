@@ -85,6 +85,22 @@ a pasta `_extensions/` ao lado.
 | `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Listas opcionais (veja `main.qmd`). |
 | `bibliography` | Arquivo `.bib` (padrão: `bibliografia.bib`). |
 
+### Ocultar páginas pré-textuais
+
+Para desativar páginas específicas, descomente a flag correspondente no YAML
+(todas vêm ligadas por padrão):
+
+```yaml
+hide-ficha: true            # ficha catalográfica
+hide-banca: true            # folha de aprovação (banca examinadora)
+hide-dedicatoria: true      # dedicatória
+hide-agradecimentos: true   # agradecimentos
+```
+
+> A banca, a dedicatória e os agradecimentos também somem automaticamente se você
+> remover os campos `banca`, `dedicatoria` ou `agradecimentos`. As flags `hide-*`
+> permitem desativá-los mantendo o conteúdo no arquivo.
+
 ### Citações
 
 Use a sintaxe de citação do Pandoc, referenciando as chaves do `.bib`:
