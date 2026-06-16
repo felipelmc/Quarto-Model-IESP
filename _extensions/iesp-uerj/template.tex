@@ -237,7 +237,11 @@ $endif$
 % LaTeX padrão (apenas [pos] opcional); a largura padrão passa a ser
 % \textwidth. Os estilos de caption (captionsetup{style=uerj}) da
 % classe continuam ativos.
+%
+% \makeatletter é necessário para que \@float e \end@float sejam
+% tokenizados corretamente (@ precisa ter catcode 11 = letra).
 % ---------------------------------------------------------------
+\makeatletter
 \renewenvironment{figure}[1][htbp]{%
   \@float{figure}[#1]%
   \centering
@@ -251,6 +255,11 @@ $endif$
 }{%
   \end@float
 }
+
+% \pandocbounded: introduced in pandoc 3.x; not present in older
+% template boilerplate. Provide a safe no-op fallback.
+\providecommand{\pandocbounded}[1]{#1}
+\makeatother
 
 \makeindex
 
