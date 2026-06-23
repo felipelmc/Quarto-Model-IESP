@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Material de referência (máscaras oficiais, Roteiro, modelo LaTeX) — não versionar
+/mascaras/
+
 # Artefatos de render do Quarto
 .quarto/
 *_files/

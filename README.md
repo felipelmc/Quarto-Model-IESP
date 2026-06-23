@@ -103,8 +103,17 @@ autocontida (`main.qmd` + `.bib`).
 | `dedicatoria`, `agradecimentos`, `epigrafe` | Elementos pré-textuais (texto livre). |
 | `resumo`, `abstract` | Resumo (PT) e Abstract (EN). |
 | `thesis-nature` | (Opcional) Texto da natureza do trabalho na folha de rosto. Se omitido, é gerado automaticamente. |
+| `ficha-pdf` | (Opcional) Caminho de um PDF com a ficha catalográfica oficial. Se omitido, a página exibe um aviso (veja abaixo). |
 | `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Listas opcionais (veja `pt/main.qmd`). |
 | `bibliography` | Arquivo `.bib` (padrão: `bibliografia.bib`). |
+
+### Ficha catalográfica
+
+A ficha catalográfica oficial é **elaborada e fornecida pela Biblioteca CCS/D –
+IESP/UERJ**. Por isso, o modelo deixa essa página reservada, com um aviso (e sem
+dados fabricados). Quando você receber a ficha em PDF, informe o caminho no campo
+`ficha-pdf` do YAML para inseri-la automaticamente. A página não entra na contagem
+de folhas (fica no verso da folha de rosto), conforme a norma.
 
 ### Ocultar páginas pré-textuais
 
@@ -180,8 +189,11 @@ trabalhos redigidos em inglês.
 quarto render en/main.qmd
 ```
 
-Por convenção de documento institucional brasileiro, a **ficha catalográfica** e a
-**folha de aprovação** permanecem em português mesmo na versão em inglês.
+Seguindo a **máscara oficial em inglês** do IESP, os elementos institucionais
+permanecem em português mesmo na versão inglesa: a **natureza do trabalho** e o
+rótulo **"Orientador"** na folha de rosto, a **folha de aprovação** e a **ficha
+catalográfica**. Ficam em inglês apenas o título, o abstract e os rótulos
+estruturais (Contents, References, List of…).
 
 ## Reprodutibilidade
 

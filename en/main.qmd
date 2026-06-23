@@ -95,11 +95,11 @@ resumo: |
   Texto do resumo em português. O resumo deve conter entre 150 e 500
   palavras conforme as normas da UERJ.
 
-# ---- Nature of the work on the title page (English text) ----
-thesis-nature: |
-  Dissertation presented, as a partial requirement for obtaining the degree
-  of Master, to the Graduate Program in Political Science, Universidade do
-  Estado do Rio de Janeiro.
+# ---- Nature of the work on the title page ----
+# The official English mask keeps this text (and the "Orientador" label) in
+# Portuguese; omitting `thesis-nature` lets the class generate the standard
+# Portuguese sentence. Set it explicitly only to override.
+# thesis-nature: "Dissertação apresentada, como requisito parcial..."
 
 # ---- Optional lists (same keys as the Portuguese model) ----
 # abreviaturas:

@@ -92,11 +92,21 @@ The repository is a **Quarto extension** plus two self-contained example folders
   for `\chapter*`, and Pandoc adds another via `\addcontentsline`. `template.tex`
   suppresses the duplicate with an `\if@uerj@suppress@nexttoc` flag.
 - **English variant** (`lang-en: true`): `template.tex` loads
-  `babel[main=english]`, overrides labels via `\addto\captionsenglish`, renames
-  `\orientadornome`→Advisor / `\abrevnome` / `\simbnome`, swaps `\cabecalho`/
+  `babel[main=english]`, overrides structural labels via `\addto\captionsenglish`
+  (Contents/References/List of…) and `\abrevnome`/`\simbnome`, swaps `\cabecalho`/
   `\headertext` so the PT Resumo header shows the PT title and the EN Abstract
-  header the EN title, and orders Abstract before Resumo. The ficha catalográfica
-  and folha de aprovação intentionally stay in Portuguese.
+  header the EN title, and orders Abstract before Resumo. Per the **official
+  English mask**, the institutional bits stay in Portuguese: the title-page
+  nature-of-work text (`thesis-nature` omitted → class default PT), the
+  `\orientadornome` label ("Orientador"), the folha de aprovação and the ficha.
+- **Ficha catalográfica**: the library supplies the official sheet, so the empty
+  `\fichacatalografica{}` renders a reserved page with a notice (no fabricated
+  data) plus the author's authorization. `\fichacatalografica{file.pdf}` (YAML
+  `ficha-pdf`) embeds a real ficha via `\includepdf`. `\addtocounter{page}{-1}`
+  keeps the page out of the leaf count either way.
+- **References single-spacing**: the `CSLReferences` environment starts with
+  `\singlespacing` (ABNT NBR 6023: single-spaced entries, blank line between),
+  overriding the `\backmatter` `\onehalfspacing`.
 - **Pre-textual page toggles**: `hide-ficha`, `hide-banca`, `hide-dedicatoria`,
   `hide-agradecimentos` (YAML booleans). They are inverted flags (`$if(hide-x)$$else$
   …$endif$`) so absence = page shown; the banca/dedicatória/agradecimentos blocks

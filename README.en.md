@@ -111,9 +111,21 @@ labels to English (Contents, References, List of Tables…) and places the
 **Abstract before the Resumo**. A **Portuguese Resumo is still required by ABNT**
 even for theses written in English, so both are produced.
 
-By Brazilian institutional convention, the **cataloguing sheet** (ficha
-catalográfica) and the **approval sheet** (folha de aprovação) remain in
-Portuguese even in the English version.
+Following the IESP **official English mask**, the institutional elements stay in
+Portuguese even in the English version: the **nature-of-the-work** text and the
+**"Orientador"** label on the title page, the **approval sheet** (folha de
+aprovação) and the **cataloguing sheet** (ficha catalográfica). Only the title,
+the abstract and the structural labels (Contents, References, List of…) are in
+English.
+
+### Cataloguing sheet (ficha catalográfica)
+
+The official ficha catalográfica is **prepared and supplied by the IESP/UERJ
+library (Biblioteca CCS/D)**. The template therefore leaves that page reserved,
+with a notice (and no fabricated data). When you receive the ficha as a PDF, set
+its path in the `ficha-pdf` YAML field to embed it automatically. The page is not
+counted in the leaf numbering (it sits on the verso of the title page), per the
+standard.
 
 ### YAML fields
 
@@ -134,6 +146,7 @@ Portuguese even in the English version.
 | `dedicatoria`, `agradecimentos`, `epigrafe` | Pre-textual elements (free text). |
 | `resumo`, `abstract` | Resumo (PT) and Abstract (EN). |
 | `thesis-nature` | (Optional) Nature-of-the-work text on the title page. |
+| `ficha-pdf` | (Optional) Path to a PDF with the official cataloguing sheet. If omitted, the page shows a notice (see above). |
 | `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Optional lists (see `en/main.qmd`). |
 | `bibliography` | `.bib` file (default: `bibliography.bib`). |
 

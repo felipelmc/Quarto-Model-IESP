@@ -547,47 +547,21 @@
     {\includepdf[pages=1]{#1}}
     { 
       \vspace*{\fill}
+      % A ficha catalográfica oficial é elaborada pela Biblioteca. Esta página
+      % fica reservada (sem dados fabricados) com um aviso; para inserir a ficha
+      % real, passe o caminho do PDF em \fichacatalografica{arquivo.pdf}.
       \begin{singlespace*}
-        \begin{center}
-          CATALOGA\c{C}\~AO NA FONTE\\
-          UERJ / REDE SIRIUS / BIBLIOTECA CCS/D - IESP
-        \end{center}
-        \footnotesize
         \noindent\hspace*{\fill}
-        {
-          \parbox[t]{14.0cm}{
-            \hrule
-            \hspace*{0.25cm}\parbox[t]{2.0cm}{
-              \vspace*{\baselineskip}
-              P476
-            }
-            \parbox[t]{11.5cm}{
-              \vspace*{\baselineskip}
-
-              \UERJautorsobrenome, \UERJautornome
-
-              \hspace{0.5cm}\UERJtitulo\ / \UERJautor. -- \UERJdata.
-              
-              \hspace{0.5cm}\UERJpaginas\ f.\\
-  
-              \hspace{0.5cm}\UERJsurpevisor: \UERJorientadornome\ \UERJorientadorsobrenome
-  
-              \hspace{0.5cm}\UERJdocumento\ (\UERJgrau\ em \UERJcurso) -- \UERJnome,
-              \UERJunidade.\\
-  
-              \hspace{0.5cm}
-              1. \chaveA.
-              2. \chaveB.
-              3. \chaveC.
-              I. \UERJorientadorsobrenome, \UERJorientadornome.
-              II. \UERJnome, \UERJunidade.
-              III. Título\\
-  
-              \hspace{8.05cm}CDU 02:141:005.7\\
-            } % fim \parbox[t]{11.5cm}
-            \hrule
-          } % fim \parbox[t]{14.0cm}
-        }
+        \fbox{\parbox{13cm}{\centering
+          \vspace*{0.3\baselineskip}
+          {\bfseries Ficha catalogr\'afica}\\[0.6\baselineskip]
+          A ficha catalogr\'afica oficial \'e elaborada e fornecida pela
+          Biblioteca CCS/D -- IESP/UERJ. Esta p\'agina deve ser substitu\'ida
+          pela ficha enviada pela Biblioteca.\\[0.4\baselineskip]
+          {\footnotesize (Para inseri-la automaticamente, informe o caminho do
+          PDF no campo \texttt{ficha-pdf} do YAML.)}
+          \vspace*{0.3\baselineskip}
+        }}
         \hspace*{\fill}
       \end{singlespace*}
       \vspace*{2.5cm}
