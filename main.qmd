@@ -4,6 +4,7 @@
 # Renderize com:  quarto render main.qmd
 format:
   iesp-uerj-pdf: default
+lang: pt  # localiza referências cruzadas (Figura, Equação, ...)
 
 # ---- Identificação da instituição ----
 university: "Universidade do Estado do Rio de Janeiro"
@@ -127,32 +128,87 @@ bibliography: bibliografia.bib
 
 # Introdução {.unnumbered}
 
-Texto da introdução [@bib:Amado1991]. Citação em linha: @bib:Andrade1997
-argumenta que texto texto.
+> Ao verme que primeiro roeu as frias carnes do meu cadáver dedico como saudosa
+> lembrança estas Memórias Póstumas [@bib:Assis1881].
 
-# Título do capítulo 1
+Em estatística vale a máxima de que "todos os modelos estão errados, mas alguns
+são úteis" [@bib:Box1976]. Um modelo é uma simplificação deliberada da realidade,
+e a arte da modelagem está em escolher quais aspectos preservar. @bib:GelmanHill2007
+mostram como modelos de regressão e modelos hierárquicos articulam essa tensão
+entre parcimônia e realismo.
 
-Texto do capítulo.
+A qualidade das conclusões depende tanto do modelo quanto dos dados. Um exemplo
+marcante é a previsão das eleições norte-americanas a partir de uma amostra de
+usuários do Xbox — fortemente enviesada em relação ao eleitorado — que, após
+ajuste estatístico adequado, produziu estimativas competitivas com pesquisas
+tradicionais [@bib:Wang2015].
 
-## Seção secundária
+# Mínimos quadrados ordinários
 
-Texto da seção com citação [@bib:Bernstein1997].
+Considere o modelo de regressão linear em forma matricial,
 
-### Seção terciária
+$$
+\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+$$ {#eq-modelo}
 
-Texto da subseção.
+em que $\mathbf{y}$ é o vetor $n \times 1$ de respostas, $\mathbf{X}$ é a matriz
+$n \times p$ de covariáveis, $\boldsymbol{\beta}$ é o vetor de coeficientes e
+$\boldsymbol{\varepsilon}$ é o vetor de erros.
 
-#### Seção quaternária
+## Derivação da forma fechada
 
-Texto da sub-subseção.
+O estimador de mínimos quadrados ordinários minimiza a soma dos quadrados dos
+resíduos:
 
-# Título do capítulo 2
+$$
+S(\boldsymbol{\beta})
+= \lVert \mathbf{y} - \mathbf{X}\boldsymbol{\beta} \rVert^{2}
+= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^{\top}
+  (\mathbf{y} - \mathbf{X}\boldsymbol{\beta}).
+$$
 
-Texto do segundo capítulo.
+Expandindo o produto e usando que $\boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{y}$
+é um escalar (logo igual à sua transposta),
+
+$$
+\begin{aligned}
+S(\boldsymbol{\beta})
+  &= \mathbf{y}^{\top}\mathbf{y}
+   - 2\,\boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{y}
+   + \boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{X}\boldsymbol{\beta}.
+\end{aligned}
+$$
+
+A condição de primeira ordem é obtida derivando em relação a $\boldsymbol{\beta}$
+e igualando a zero:
+
+$$
+\frac{\partial S}{\partial \boldsymbol{\beta}}
+= -2\,\mathbf{X}^{\top}\mathbf{y}
+  + 2\,\mathbf{X}^{\top}\mathbf{X}\boldsymbol{\beta}
+\overset{!}{=} \mathbf{0}.
+$$
+
+Supondo que $\mathbf{X}^{\top}\mathbf{X}$ seja invertível, resolve-se para o
+estimador na sua célebre forma fechada:
+
+$$
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^{\top}\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{y}.
+$$ {#eq-ols}
+
+## Ilustração
+
+A @fig-regressao apresenta um conjunto de pontos $(x_i, y_i)$ e a reta ajustada
+pela @eq-ols. O intercepto e a inclinação estimados são, respectivamente,
+$\hat{\beta}_0 \approx 1{,}78$ e $\hat{\beta}_1 \approx 0{,}79$.
+
+![Reta de regressão ajustada por mínimos quadrados ordinários. Fonte: elaboração própria (2026).](regressao.png){#fig-regressao width=75%}
 
 # Conclusão {.unnumbered}
 
-Texto da conclusão.
+Modelos são úteis quando ajudam a aprender com os dados [@bib:Box1976], e a forma
+fechada do MQO em @eq-ols é o ponto de partida para extensões mais ricas, como os
+modelos hierárquicos de @bib:GelmanHill2007.
 
 # Referências {.unnumbered}
 

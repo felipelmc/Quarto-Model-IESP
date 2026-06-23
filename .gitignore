@@ -1,3 +1,6 @@
+# macOS
+.DS_Store
+
 # Artefatos de render do Quarto
 /.quarto/
 *_files/

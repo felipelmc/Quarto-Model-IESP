@@ -85,7 +85,15 @@ edits; the "engine" lives in `_extensions/iesp-uerj/`.
   `\headertext` so the PT Resumo header shows the PT title and the EN Abstract
   header the EN title, and orders Abstract before Resumo. The ficha catalográfica
   and folha de aprovação intentionally stay in Portuguese.
+- **Pre-textual page toggles**: `hide-ficha`, `hide-banca`, `hide-dedicatoria`,
+  `hide-agradecimentos` (YAML booleans). They are inverted flags (`$if(hide-x)$$else$
+  …$endif$`) so absence = page shown; the banca/dedicatória/agradecimentos blocks
+  are additionally gated on their content field being present.
 - **`.bib` encoding**: prefer precomposed UTF-8. Entries with `\i` + accent (e.g.
   `cient{\'\i}fica`) make citeproc emit a decomposed dotless-i + combining acute
   that pdflatex's `inputenc` cannot compose; `bibliografia.bib` was normalized to
   `í`.
+- **`format-resources` copies**: rendering copies the `.cls`/`.sty`/images from the
+  extension into the project root next to the intermediate `.tex` (so pdflatex
+  finds them). These root copies are `.gitignore`d — do not commit or hand-edit
+  them; edit the originals under `_extensions/iesp-uerj/`.

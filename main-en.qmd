@@ -4,6 +4,7 @@
 # Render with:  quarto render main-en.qmd
 format:
   iesp-uerj-pdf: default
+lang: en  # localises cross-references (Figure, Equation, ...)
 
 # ---- Document language: English labels (Contents, References, ...) ----
 lang-en: true
@@ -123,32 +124,84 @@ bibliography: bibliografia.bib
 
 # Introduction {.unnumbered}
 
-Introduction text [@bib:Amado1991]. In-text citation: @bib:Andrade1997
-argues that text text.
+> To the worm that first gnawed the cold flesh of my corpse I dedicate these
+> Posthumous Memoirs as a fond remembrance [@bib:Assis1881].
 
-# Chapter 1 title
+In statistics, "all models are wrong, but some are useful" [@bib:Box1976]. A model
+is a deliberate simplification of reality, and the craft of modelling lies in
+choosing which aspects to keep. @bib:GelmanHill2007 show how regression and
+hierarchical models negotiate this tension between parsimony and realism.
 
-Chapter text.
+The quality of our conclusions depends on both the model and the data. A striking
+example is the forecasting of U.S. elections from a sample of Xbox users — heavily
+biased relative to the electorate — which, after suitable statistical adjustment,
+produced estimates competitive with traditional polls [@bib:Wang2015].
 
-## Secondary section
+# Ordinary least squares
 
-Section text with a citation [@bib:Bernstein1997].
+Consider the linear regression model in matrix form,
 
-### Tertiary section
+$$
+\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon},
+$$ {#eq-modelo}
 
-Subsection text.
+where $\mathbf{y}$ is the $n \times 1$ response vector, $\mathbf{X}$ is the
+$n \times p$ design matrix, $\boldsymbol{\beta}$ is the coefficient vector and
+$\boldsymbol{\varepsilon}$ is the error vector.
 
-#### Quaternary section
+## Closed-form derivation
 
-Sub-subsection text.
+The ordinary least squares estimator minimises the residual sum of squares:
 
-# Chapter 2 title
+$$
+S(\boldsymbol{\beta})
+= \lVert \mathbf{y} - \mathbf{X}\boldsymbol{\beta} \rVert^{2}
+= (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})^{\top}
+  (\mathbf{y} - \mathbf{X}\boldsymbol{\beta}).
+$$
 
-Second chapter text.
+Expanding the product and using that $\boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{y}$
+is a scalar (hence equal to its transpose),
+
+$$
+\begin{aligned}
+S(\boldsymbol{\beta})
+  &= \mathbf{y}^{\top}\mathbf{y}
+   - 2\,\boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{y}
+   + \boldsymbol{\beta}^{\top}\mathbf{X}^{\top}\mathbf{X}\boldsymbol{\beta}.
+\end{aligned}
+$$
+
+The first-order condition follows by differentiating with respect to
+$\boldsymbol{\beta}$ and setting the gradient to zero:
+
+$$
+\frac{\partial S}{\partial \boldsymbol{\beta}}
+= -2\,\mathbf{X}^{\top}\mathbf{y}
+  + 2\,\mathbf{X}^{\top}\mathbf{X}\boldsymbol{\beta}
+\overset{!}{=} \mathbf{0}.
+$$
+
+Assuming $\mathbf{X}^{\top}\mathbf{X}$ is invertible, we solve for the estimator in
+its celebrated closed form:
+
+$$
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^{\top}\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{y}.
+$$ {#eq-ols}
+
+## Illustration
+
+@fig-regressao shows a set of points $(x_i, y_i)$ and the line fitted by
+@eq-ols. The estimated intercept and slope are $\hat{\beta}_0 \approx 1.78$ and
+$\hat{\beta}_1 \approx 0.79$, respectively.
+
+![Regression line fitted by ordinary least squares. Source: prepared by the author (2026).](regressao-en.png){#fig-regressao width=75%}
 
 # Conclusion {.unnumbered}
 
-Conclusion text.
+Models are useful when they help us learn from data [@bib:Box1976], and the
+closed form of OLS in @eq-ols is the starting point for richer extensions, such as
+the hierarchical models of @bib:GelmanHill2007.
 
 # References {.unnumbered}
 
