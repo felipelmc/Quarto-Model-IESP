@@ -192,8 +192,15 @@ $$ {#eq-ols}
 ## Illustration
 
 @fig-regression shows a set of points $(x_i, y_i)$ and the line fitted by
-@eq-ols. The estimated intercept and slope are $\hat{\beta}_0 \approx 1.78$ and
-$\hat{\beta}_1 \approx 0.79$, respectively.
+@eq-ols. @tbl-coef summarises the estimates, with their standard errors and
+$t$-statistics.
+
+| Coefficient            | Estimate | Std. error | $t$-statistic |
+|:-----------------------|:--------:|:----------:|:-------------:|
+| $\beta_0$ (intercept)  |   1.78   |    0.25    |     7.20      |
+| $\beta_1$ (slope)      |   0.79   |    0.04    |    18.95      |
+
+: Ordinary least squares estimates. Source: prepared by the author (2026). {#tbl-coef}
 
 ![Regression line fitted by ordinary least squares. Source: prepared by the author (2026).](regression.png){#fig-regression width=75%}
 

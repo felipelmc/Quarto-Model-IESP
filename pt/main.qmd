@@ -199,8 +199,15 @@ $$ {#eq-ols}
 ## Ilustração
 
 A @fig-regressao apresenta um conjunto de pontos $(x_i, y_i)$ e a reta ajustada
-pela @eq-ols. O intercepto e a inclinação estimados são, respectivamente,
-$\hat{\beta}_0 \approx 1{,}78$ e $\hat{\beta}_1 \approx 0{,}79$.
+pela @eq-ols. A @tbl-coef resume as estimativas, com os respectivos erros-padrão
+e estatísticas $t$.
+
+| Coeficiente            | Estimativa | Erro-padrão | Estatística $t$ |
+|:-----------------------|:----------:|:-----------:|:---------------:|
+| $\beta_0$ (intercepto) |    1,78    |    0,25     |      7,20       |
+| $\beta_1$ (inclinação) |    0,79    |    0,04     |     18,95       |
+
+: Estimativas de mínimos quadrados ordinários. Fonte: elaboração própria (2026). {#tbl-coef}
 
 ![Reta de regressão ajustada por mínimos quadrados ordinários. Fonte: elaboração própria (2026).](regressao.png){#fig-regressao width=75%}
 
