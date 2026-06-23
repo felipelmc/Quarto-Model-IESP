@@ -1,5 +1,11 @@
 # IESP-UERJ Quarto template for dissertations and theses
 
+> ⚠️ **Disclaimer — unofficial template.** This project **reproduces** the official
+> IESP-UERJ dissertation/thesis model, but **is not an official template** of the
+> institute: it is neither maintained nor endorsed by IESP-UERJ and was produced by
+> a student. Always check your program's current guidelines before submitting your
+> work.
+
 A [Quarto](https://quarto.org) template for master's dissertations and doctoral
 theses at **IESP-UERJ** (Institute of Social and Political Studies, Rio de Janeiro
 State University), following Brazilian ABNT standards. Write your work in

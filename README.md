@@ -1,5 +1,10 @@
 # Modelo Quarto de dissertações e teses do IESP-UERJ
 
+> ⚠️ **Aviso — modelo não oficial.** Este projeto **reproduz** o modelo oficial de
+> dissertações e teses do IESP-UERJ, mas **não é um modelo oficial** do instituto:
+> não é mantido nem endossado pelo IESP-UERJ e foi produzido por um aluno. Confira
+> sempre as normas vigentes do seu programa antes de submeter o trabalho.
+
 Modelo [Quarto](https://quarto.org) para dissertações de mestrado e teses de
 doutorado do **IESP-UERJ** (Instituto de Estudos Sociais e Políticos da
 Universidade do Estado do Rio de Janeiro), seguindo as normas ABNT. Permite
