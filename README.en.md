@@ -37,10 +37,19 @@ Citations are processed by **citeproc** (Quarto's native engine) using the CSL
 
 ```
 .
-├── main.qmd                 # Portuguese example
-├── main-en.qmd              # English example (edit this for an English thesis)
-├── bibliografia.bib         # reference database (BibTeX)
-├── main.pdf / main-en.pdf   # rendered example PDFs
+├── _quarto.yml              # Quarto project (lets the subfolders find _extensions/)
+├── pt/                      # PORTUGUESE example
+│   ├── main.qmd             #   edit this file
+│   ├── bibliografia.bib     #   reference database (BibTeX)
+│   ├── regressao.png        #   example figure
+│   └── main.pdf             #   rendered PDF
+├── en/                      # ENGLISH example
+│   ├── main.qmd
+│   ├── bibliography.bib
+│   ├── regression.png
+│   └── main.pdf
+├── tools/
+│   └── make_figures.py      # regenerates the example figures
 └── _extensions/iesp-uerj/   # the "engine" — no need to edit
     ├── _extension.yml       # defines the iesp-uerj-pdf format
     ├── template.tex         # LaTeX template (PT/EN labels)
@@ -53,16 +62,39 @@ Citations are processed by **citeproc** (Quarto's native engine) using the CSL
 
 ## Usage
 
-1. Edit the YAML metadata at the top of `main-en.qmd` (see the table below).
+1. Edit the YAML metadata at the top of `en/main.qmd` (see the table below).
 2. Write your chapters in the document body, in Markdown.
-3. Render:
+3. Render from the **repository root**:
    ```sh
-   quarto render main-en.qmd
+   quarto render en/main.qmd     # -> en/main.pdf
+   quarto render pt/main.qmd     # -> pt/main.pdf
+   quarto render                 # renders both at once
    ```
-   The result is `main-en.pdf`.
 
-To start a new work, copy `main-en.qmd` (and `bibliografia.bib`) and keep the
-`_extensions/` folder alongside.
+> Always render from the root (where `_quarto.yml` lives): that file is what lets
+> Quarto locate the `_extensions/iesp-uerj` extension from `pt/`/`en/`.
+
+To start a new work, edit inside `en/` (or `pt/`) — each folder is self-contained
+(`main.qmd` + `.bib` + figures).
+
+## Reproducibility
+
+Everything needed to build the PDFs is versioned in the repository — just **clone
+and render**, with no manual steps and no internet access:
+
+```sh
+git clone https://github.com/felipelmc/Quarto-Model-IESP.git
+cd Quarto-Model-IESP
+quarto render            # builds pt/main.pdf and en/main.pdf
+```
+
+- The extension (class, `.sty`, CSL, logos) lives in `_extensions/iesp-uerj/` —
+  nothing is downloaded at render time.
+- The example figures (`pt/regressao.png`, `en/regression.png`) are versioned. To
+  **regenerate** them from code (needs Python with `numpy` and `matplotlib`):
+  `python3 tools/make_figures.py`.
+- On the first render, TinyTeX automatically installs any missing LaTeX packages.
+  Install TinyTeX with `quarto install tinytex`.
 
 ### Writing in English
 
@@ -94,8 +126,8 @@ Portuguese even in the English version.
 | `dedicatoria`, `agradecimentos`, `epigrafe` | Pre-textual elements (free text). |
 | `resumo`, `abstract` | Resumo (PT) and Abstract (EN). |
 | `thesis-nature` | (Optional) Nature-of-the-work text on the title page. |
-| `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Optional lists (see `main-en.qmd`). |
-| `bibliography` | `.bib` file (default: `bibliografia.bib`). |
+| `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Optional lists (see `en/main.qmd`). |
+| `bibliography` | `.bib` file (default: `bibliography.bib`). |
 
 ### Hiding pre-textual pages
 

@@ -1,0 +1,7 @@
+project:
+  # Define a raiz do projeto para que o Quarto encontre _extensions/iesp-uerj
+  # a partir das subpastas pt/ e en/.
+  type: default
+  render:
+    - pt/main.qmd
+    - en/main.qmd

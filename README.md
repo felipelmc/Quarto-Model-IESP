@@ -37,10 +37,19 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
 
 ```
 .
-├── main.qmd                 # exemplo em português (edite este arquivo)
-├── main-en.qmd              # exemplo em inglês
-├── bibliografia.bib         # base de referências (BibTeX)
-├── main.pdf / main-en.pdf   # PDFs renderizados de exemplo
+├── _quarto.yml              # projeto Quarto (faz as subpastas acharem _extensions/)
+├── pt/                      # exemplo em PORTUGUÊS
+│   ├── main.qmd             #   edite este arquivo
+│   ├── bibliografia.bib     #   base de referências (BibTeX)
+│   ├── regressao.png        #   figura de exemplo
+│   └── main.pdf             #   PDF renderizado
+├── en/                      # exemplo em INGLÊS
+│   ├── main.qmd
+│   ├── bibliography.bib
+│   ├── regression.png
+│   └── main.pdf
+├── tools/
+│   └── make_figures.py      # regenera as figuras de exemplo
 └── _extensions/iesp-uerj/   # o "motor" — não precisa editar
     ├── _extension.yml       # define o formato iesp-uerj-pdf
     ├── template.tex         # template LaTeX (rótulos PT/EN)
@@ -53,16 +62,20 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
 
 ## Como usar
 
-1. Edite os metadados no cabeçalho YAML de `main.qmd` (veja a tabela abaixo).
+1. Edite os metadados no cabeçalho YAML de `pt/main.qmd` (veja a tabela abaixo).
 2. Escreva os capítulos no corpo do documento, em Markdown.
-3. Renderize:
+3. Renderize a partir da **raiz do repositório**:
    ```sh
-   quarto render main.qmd
+   quarto render pt/main.qmd     # -> pt/main.pdf
+   quarto render en/main.qmd     # -> en/main.pdf
+   quarto render                 # renderiza as duas versões de uma vez
    ```
-   O resultado é `main.pdf`.
 
-Para começar um trabalho novo, copie `main.qmd` (e `bibliografia.bib`) e mantenha
-a pasta `_extensions/` ao lado.
+> Renderize sempre a partir da raiz (onde está `_quarto.yml`): é ele que permite
+> ao Quarto localizar a extensão `_extensions/iesp-uerj` a partir de `pt/`/`en/`.
+
+Para começar um trabalho novo, trabalhe dentro de `pt/` (ou `en/`) — a pasta já é
+autocontida (`main.qmd` + `.bib` + figuras).
 
 ### Campos do YAML
 
@@ -82,7 +95,7 @@ a pasta `_extensions/` ao lado.
 | `dedicatoria`, `agradecimentos`, `epigrafe` | Elementos pré-textuais (texto livre). |
 | `resumo`, `abstract` | Resumo (PT) e Abstract (EN). |
 | `thesis-nature` | (Opcional) Texto da natureza do trabalho na folha de rosto. Se omitido, é gerado automaticamente. |
-| `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Listas opcionais (veja `main.qmd`). |
+| `abreviaturas`, `simbolos`, `glossario`, `apendices`, `anexos` | Listas opcionais (veja `pt/main.qmd`). |
 | `bibliography` | Arquivo `.bib` (padrão: `bibliografia.bib`). |
 
 ### Ocultar páginas pré-textuais
@@ -133,18 +146,37 @@ Veja a @fig-exemplo.
 
 ## Versão em inglês
 
-Para escrever a tese em inglês, use `main-en.qmd` como base. A diferença essencial
+Para escrever a tese em inglês, use `en/main.qmd` como base. A diferença essencial
 é a flag `lang-en: true` no YAML, que troca os rótulos estruturais para o inglês
 (Contents, References, List of Tables…) e coloca o **Abstract antes do Resumo**.
 O **Resumo em português continua presente**, pois é exigido pela ABNT mesmo em
 trabalhos redigidos em inglês.
 
 ```sh
-quarto render main-en.qmd
+quarto render en/main.qmd
 ```
 
 Por convenção de documento institucional brasileiro, a **ficha catalográfica** e a
 **folha de aprovação** permanecem em português mesmo na versão em inglês.
+
+## Reprodutibilidade
+
+Tudo o que é necessário para gerar os PDFs está versionado no repositório — basta
+**clonar e renderizar**, sem passos manuais nem acesso à internet:
+
+```sh
+git clone https://github.com/felipelmc/Quarto-Model-IESP.git
+cd Quarto-Model-IESP
+quarto render            # gera pt/main.pdf e en/main.pdf
+```
+
+- A extensão (classe, `.sty`, CSL, logos) está em `_extensions/iesp-uerj/` — nada é
+  baixado em tempo de render.
+- As figuras de exemplo (`pt/regressao.png`, `en/regression.png`) estão
+  versionadas. Para **regenerá-las** a partir do código (requer Python com `numpy`
+  e `matplotlib`): `python3 tools/make_figures.py`.
+- Na primeira renderização, o TinyTeX instala automaticamente os pacotes LaTeX que
+  faltarem. Para instalar o TinyTeX: `quarto install tinytex`.
 
 ## Limitações conhecidas
 

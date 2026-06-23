@@ -2,16 +2,16 @@
 .DS_Store
 
 # Artefatos de render do Quarto
-/.quarto/
+.quarto/
 *_files/
 
-# Cópias do "motor" geradas por format-resources a cada render
+# Cópias do "motor" geradas por format-resources a cada render, em pt/ e en/
 # (os originais ficam versionados em _extensions/iesp-uerj/)
-/repUERJ.cls
-/repUERJformat.sty
-/repUERJpseudocode.sty
-/logo_uerj_cinza.png
-/marcadagua_uerj_cinza.png
+repUERJ.cls
+repUERJformat.sty
+repUERJpseudocode.sty
+logo_uerj_cinza.png
+marcadagua_uerj_cinza.png
 
 # Auxiliares LaTeX
 *.aux
@@ -27,3 +27,6 @@
 *.blg
 *.fls
 *.fdb_latexmk
+
+/.quarto/
+**/*.quarto_ipynb

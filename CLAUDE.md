@@ -16,31 +16,41 @@ in Brazilian Portuguese; an English variant is driven by a YAML flag.
 
 ## Building the PDF
 
-Build with Quarto (it handles the pdflatex + citeproc passes automatically):
+Build with Quarto **from the repository root** (it handles the pdflatex + citeproc
+passes automatically):
 
 ```sh
-quarto render main.qmd       # Portuguese example -> main.pdf
-quarto render main-en.qmd    # English example   -> main-en.pdf
+quarto render pt/main.qmd    # Portuguese example -> pt/main.pdf
+quarto render en/main.qmd    # English example    -> en/main.pdf
+quarto render                # both (per the render list in _quarto.yml)
 ```
 
-Requires Quarto ≥ 1.4 and a `pdflatex` (TinyTeX: `quarto install tinytex`). The
-engine is **pdflatex** (the class uses `mathptmx`/`inputenc`, not Unicode engines),
-set in the extension — do not switch to lualatex/xelatex.
+Rendering must run from the root because `_quarto.yml` (project root) is what lets
+Quarto resolve the `_extensions/iesp-uerj` extension from the `pt/`/`en/`
+subfolders. Requires Quarto ≥ 1.4 and a `pdflatex` (TinyTeX: `quarto install
+tinytex`). The engine is **pdflatex** (the class uses `mathptmx`/`inputenc`, not
+Unicode engines), set in the extension — do not switch to lualatex/xelatex.
 
-`main.pdf` is the committed rendered example. `Modelo_de_tese_IESP_UERJ.pdf` (the
-original LaTeX output) was used to verify formatting fidelity and then removed.
+`pt/main.pdf`/`en/main.pdf` are the committed rendered examples.
+`Modelo_de_tese_IESP_UERJ.pdf` (the original LaTeX output) was used to verify
+formatting fidelity and then removed. Everything needed to render is versioned
+(nothing is fetched at render time); example figures are regenerable with
+`python3 tools/make_figures.py`.
 
 ## Architecture
 
-The repository is a **Quarto extension**. The root holds only what an author
-edits; the "engine" lives in `_extensions/iesp-uerj/`.
+The repository is a **Quarto extension** plus two self-contained example folders
+(`pt/`, `en/`). The author edits inside a language folder; the "engine" lives in
+`_extensions/iesp-uerj/` and is shared (resolved via the root `_quarto.yml`).
 
-- **[main.qmd](main.qmd)** / **[main-en.qmd](main-en.qmd)** — example documents an
-  author edits. YAML front matter carries all metadata (`title`, `author-*`,
-  `advisor`, `degree`, `banca`, `resumo`, `abstract`, keywords, optional lists);
-  the body is the chapters in Markdown. Both select `format: iesp-uerj-pdf` and end
-  with a `# Referências`/`# References` heading + `::: {#refs} :::` block where
-  citeproc injects the reference list.
+- **[pt/main.qmd](pt/main.qmd)** / **[en/main.qmd](en/main.qmd)** — example
+  documents an author edits. YAML front matter carries all metadata (`title`,
+  `author-*`, `advisor`, `degree`, `banca`, `resumo`, `abstract`, keywords, optional
+  lists); the body is the chapters in Markdown. Both select `format: iesp-uerj-pdf`
+  and end with a `# Referências`/`# References` heading + `::: {#refs} :::` block
+  where citeproc injects the reference list. `en/main.qmd` adds `lang-en: true`.
+  Each folder ships its own `.bib` and figure (PT uses `regressao.png`; EN uses
+  `regression.png`).
 - **[_extensions/iesp-uerj/_extension.yml](_extensions/iesp-uerj/_extension.yml)** —
   defines the `iesp-uerj-pdf` format: `template.tex`, `csl: abnt.csl`,
   `pdf-engine: pdflatex`, `top-level-division: chapter`, and `format-resources`
@@ -94,6 +104,7 @@ edits; the "engine" lives in `_extensions/iesp-uerj/`.
   that pdflatex's `inputenc` cannot compose; `bibliografia.bib` was normalized to
   `í`.
 - **`format-resources` copies**: rendering copies the `.cls`/`.sty`/images from the
-  extension into the project root next to the intermediate `.tex` (so pdflatex
-  finds them). These root copies are `.gitignore`d — do not commit or hand-edit
-  them; edit the originals under `_extensions/iesp-uerj/`.
+  extension into the rendered file's folder (`pt/` or `en/`) next to the
+  intermediate `.tex` (so pdflatex finds them). These copies are `.gitignore`d (by
+  bare filename) — do not commit or hand-edit them; edit the originals under
+  `_extensions/iesp-uerj/`.
