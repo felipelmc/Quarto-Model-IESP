@@ -11,7 +11,7 @@ Se este modelo for útil ao seu trabalho, cite-o
 ([DOI: 10.5281/zenodo.20819431](https://doi.org/10.5281/zenodo.20819431)):
 
 ```bibtex
-@software{lamarca2026quarto,
+@software{lamarcaPestana2026quarto,
   author    = {Lamarca, Felipe and Pestana, Matheus Cavalcanti},
   title     = {Quarto Template for {IESP-UERJ} Dissertations and Theses},
   year      = {2026},
