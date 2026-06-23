@@ -5,6 +5,23 @@
 > não é mantido nem endossado pelo IESP-UERJ e foi produzido por um aluno. Confira
 > sempre as normas vigentes do seu programa antes de submeter o trabalho.
 
+## Como citar
+
+Se este modelo for útil ao seu trabalho, cite-o
+([DOI: 10.5281/zenodo.20819431](https://doi.org/10.5281/zenodo.20819431)):
+
+```bibtex
+@software{lamarca2026quarto,
+  author    = {Lamarca, Felipe and Pestana, Matheus Cavalcanti},
+  title     = {Quarto Template for {IESP-UERJ} Dissertations and Theses},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v1},
+  doi       = {10.5281/zenodo.20819431},
+  url       = {https://doi.org/10.5281/zenodo.20819431}
+}
+```
+
 Modelo [Quarto](https://quarto.org) para dissertações de mestrado e teses de
 doutorado do **IESP-UERJ** (Instituto de Estudos Sociais e Políticos da
 Universidade do Estado do Rio de Janeiro), seguindo as normas ABNT. Permite

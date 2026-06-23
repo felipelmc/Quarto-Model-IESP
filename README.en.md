@@ -6,6 +6,23 @@
 > a student. Always check your program's current guidelines before submitting your
 > work.
 
+## How to cite
+
+If this template is useful for your work, please cite it
+([DOI: 10.5281/zenodo.20819431](https://doi.org/10.5281/zenodo.20819431)):
+
+```bibtex
+@software{lamarca2026quarto,
+  author    = {Lamarca, Felipe and Pestana, Matheus Cavalcanti},
+  title     = {Quarto Template for {IESP-UERJ} Dissertations and Theses},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v1},
+  doi       = {10.5281/zenodo.20819431},
+  url       = {https://doi.org/10.5281/zenodo.20819431}
+}
+```
+
 A [Quarto](https://quarto.org) template for master's dissertations and doctoral
 theses at **IESP-UERJ** (Institute of Social and Political Studies, Rio de Janeiro
 State University), following Brazilian ABNT standards. Write your work in
