@@ -34,8 +34,9 @@ Unicode engines), set in the extension — do not switch to lualatex/xelatex.
 `pt/main.pdf`/`en/main.pdf` are the committed rendered examples.
 `Modelo_de_tese_IESP_UERJ.pdf` (the original LaTeX output) was used to verify
 formatting fidelity and then removed. Everything needed to render is versioned
-(nothing is fetched at render time); example figures are regenerable with
-`python3 tools/make_figures.py`.
+(nothing is fetched at render time). The examples contain **R code chunks** (the
+example figure and coefficient table), so rendering uses the **knitr** engine and
+needs R with `knitr`/`rmarkdown`; the figure is base R (no extra package).
 
 ## Architecture
 
@@ -49,8 +50,9 @@ The repository is a **Quarto extension** plus two self-contained example folders
   lists); the body is the chapters in Markdown. Both select `format: iesp-uerj-pdf`
   and end with a `# Referências`/`# References` heading + `::: {#refs} :::` block
   where citeproc injects the reference list. `en/main.qmd` adds `lang-en: true`.
-  Each folder ships its own `.bib` and figure (PT uses `regressao.png`; EN uses
-  `regression.png`).
+  Each folder ships its own `.bib`; the example figure and OLS coefficient table
+  are produced at render by R chunks (`#| label: fig-…`/`tbl-coef`), not committed
+  as files.
 - **[_extensions/iesp-uerj/_extension.yml](_extensions/iesp-uerj/_extension.yml)** —
   defines the `iesp-uerj-pdf` format: `template.tex`, `csl: abnt.csl`,
   `pdf-engine: pdflatex`, `top-level-division: chapter`, and `format-resources`

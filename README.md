@@ -32,6 +32,9 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
    quarto install tinytex
    ```
    (ou uma instalação TeX Live completa).
+3. **R** com os pacotes `knitr` e `rmarkdown` — os exemplos geram a figura e a
+   tabela com código R embutido (chunks). Em R: `install.packages(c("knitr",
+   "rmarkdown"))`. (A figura usa apenas R base; nenhum pacote extra é necessário.)
 
 ## Estrutura do repositório
 
@@ -41,15 +44,11 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
 ├── pt/                      # exemplo em PORTUGUÊS
 │   ├── main.qmd             #   edite este arquivo
 │   ├── bibliografia.bib     #   base de referências (BibTeX)
-│   ├── regressao.png        #   figura de exemplo
 │   └── main.pdf             #   PDF renderizado
 ├── en/                      # exemplo em INGLÊS
 │   ├── main.qmd
 │   ├── bibliography.bib
-│   ├── regression.png
 │   └── main.pdf
-├── tools/
-│   └── make_figures.py      # regenera as figuras de exemplo
 └── _extensions/iesp-uerj/   # o "motor" — não precisa editar
     ├── _extension.yml       # define o formato iesp-uerj-pdf
     ├── template.tex         # template LaTeX (rótulos PT/EN)
@@ -59,6 +58,10 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
     ├── abnt.csl             # estilo de citação ABNT 2023
     └── logo / marcadagua    # imagens da capa e folha de rosto
 ```
+
+A figura e a tabela de exemplo são **geradas no render por chunks R** (não há PNG
+versionado): a figura por um `plot()` de R base e a tabela por `knitr::kable()`,
+ambos a partir de um `lm()` ajustado no próprio documento.
 
 ## Como usar
 
@@ -75,7 +78,7 @@ CSL `_extensions/iesp-uerj/abnt.csl` (NBR 6023:2018 + 10520:2023), e **não** pe
 > ao Quarto localizar a extensão `_extensions/iesp-uerj` a partir de `pt/`/`en/`.
 
 Para começar um trabalho novo, trabalhe dentro de `pt/` (ou `en/`) — a pasta já é
-autocontida (`main.qmd` + `.bib` + figuras).
+autocontida (`main.qmd` + `.bib`).
 
 ### Campos do YAML
 
@@ -136,13 +139,29 @@ Mantenha esse bloco no final do seu documento.
 
 ### Figuras e tabelas
 
-Use a sintaxe normal do Quarto:
+Para imagens prontas, use a sintaxe normal do Quarto:
 
 ```markdown
 ![Legenda da figura](caminho/imagem.png){#fig-exemplo}
 
 Veja a @fig-exemplo.
 ```
+
+Para conteúdo **calculado**, os exemplos usam chunks R (avaliados no render). Uma
+figura com legenda e referência cruzada:
+
+````markdown
+```{r}
+#| label: fig-exemplo
+#| fig-cap: "Legenda. Fonte: elaboração própria."
+#| echo: false
+plot(cars)
+```
+````
+
+E uma tabela com `knitr::kable()` (legenda via `#| tbl-cap:`, referência por
+`@tbl-exemplo`). Veja `pt/main.qmd` para o exemplo completo (figura + tabela a
+partir de um `lm()`).
 
 ## Versão em inglês
 
@@ -172,9 +191,8 @@ quarto render            # gera pt/main.pdf e en/main.pdf
 
 - A extensão (classe, `.sty`, CSL, logos) está em `_extensions/iesp-uerj/` — nada é
   baixado em tempo de render.
-- As figuras de exemplo (`pt/regressao.png`, `en/regression.png`) estão
-  versionadas. Para **regenerá-las** a partir do código (requer Python com `numpy`
-  e `matplotlib`): `python3 tools/make_figures.py`.
+- A figura e a tabela são geradas pelos chunks R do próprio documento (requer **R**
+  com `knitr` e `rmarkdown`); não há imagens versionadas.
 - Na primeira renderização, o TinyTeX instala automaticamente os pacotes LaTeX que
   faltarem. Para instalar o TinyTeX: `quarto install tinytex`.
 

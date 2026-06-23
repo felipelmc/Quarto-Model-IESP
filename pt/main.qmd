@@ -198,18 +198,53 @@ $$ {#eq-ols}
 
 ## Ilustração
 
+```{r}
+#| label: setup-ols
+#| include: false
+set.seed(42)
+n <- 60
+x <- runif(n, 0, 10)
+y <- 2 + 0.8 * x + rnorm(n, 0, 1.2)
+fit <- lm(y ~ x)            # forma fechada do MQO: (X'X)^{-1} X'y
+```
+
 A @fig-regressao apresenta um conjunto de pontos $(x_i, y_i)$ e a reta ajustada
 pela @eq-ols. A @tbl-coef resume as estimativas, com os respectivos erros-padrão
 e estatísticas $t$.
 
-| Coeficiente            | Estimativa | Erro-padrão | Estatística $t$ |
-|:-----------------------|:----------:|:-----------:|:---------------:|
-| $\beta_0$ (intercepto) |    1,78    |    0,25     |      7,20       |
-| $\beta_1$ (inclinação) |    0,79    |    0,04     |     18,95       |
+```{r}
+#| label: tbl-coef
+#| tbl-cap: "Estimativas de mínimos quadrados ordinários. Fonte: elaboração própria (2026)."
+#| echo: false
+s <- summary(fit)$coefficients
+fmt <- function(v) formatC(v, format = "f", digits = 2, decimal.mark = ",")
+tab <- data.frame(
+  coef = c("$\\beta_0$ (intercepto)", "$\\beta_1$ (inclinação)"),
+  est  = fmt(s[, "Estimate"]),
+  se   = fmt(s[, "Std. Error"]),
+  tval = fmt(s[, "t value"])
+)
+knitr::kable(
+  tab, booktabs = TRUE, escape = FALSE, align = "lccc", row.names = FALSE,
+  col.names = c("Coeficiente", "Estimativa", "Erro-padrão", "Estatística $t$")
+)
+```
 
-: Estimativas de mínimos quadrados ordinários. Fonte: elaboração própria (2026). {#tbl-coef}
-
-![Reta de regressão ajustada por mínimos quadrados ordinários. Fonte: elaboração própria (2026).](regressao.png){#fig-regressao width=75%}
+```{r}
+#| label: fig-regressao
+#| fig-cap: "Reta de regressão ajustada por mínimos quadrados ordinários. Fonte: elaboração própria (2026)."
+#| out-width: "75%"
+#| fig-width: 6
+#| fig-height: 4
+#| echo: false
+op <- par(mar = c(4, 4, 1, 1), family = "serif")
+plot(x, y, pch = 1, xlab = "x", ylab = "y", bty = "l", las = 1)
+abline(fit, lwd = 2)
+legend("topleft", bty = "n",
+       legend = c("Observações", "Ajuste por MQO"),
+       pch = c(1, NA), lty = c(NA, 1), lwd = c(NA, 2))
+par(op)
+```
 
 # Conclusão {.unnumbered}
 
