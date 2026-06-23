@@ -71,6 +71,7 @@ banca:
 # hide-banca: true            # approval sheet (folha de aprovação)
 # hide-dedicatoria: true      # dedication
 # hide-agradecimentos: true   # acknowledgements
+# hide-abstract: true         # abstract (EN) and resumo (PT) pages
 
 # ---- Pre-textual elements ----
 dedicatoria: "Dedication text."

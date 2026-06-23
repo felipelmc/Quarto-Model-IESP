@@ -34,6 +34,7 @@ $endif$
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{subfiles}
 \usepackage{booktabs}
 \usepackage{caption}
@@ -306,6 +307,7 @@ $if(epigrafe)$
   \end{flushright}
 $endif$
 
+$if(hide-abstract)$$else$
 $if(lang-en)$
 % Em documento inglês, o Abstract (vernáculo do trabalho) vem antes do Resumo (PT).
 \pretextualchapter{Abstract}
@@ -339,6 +341,7 @@ $resumo$\\
 $abstract$\\
 
 \printkeys
+$endif$
 $endif$
 
 \listadefiguras
