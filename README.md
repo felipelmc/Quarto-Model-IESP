@@ -240,7 +240,7 @@ quarto render            # gera pt/main.pdf e en/main.pdf
 
 ## Créditos
 
-- **Modelo LaTeX original (classe `repUERJ`)**: [Mateus Pestana](https://github.com/mateuspestana/modelo_latex_iespuerj).
+- **Modelo LaTeX original (classe `repUERJ`)**: [Matheus Pestana](https://github.com/mateuspestana/modelo_latex_iespuerj).
 - A classe `repUERJ` é derivada do trabalho do Prof. Luís Fernando de Oliveira.
 - Estilo de citação ABNT 2023 (CSL): [virgilinojuca/csl-abnt](https://github.com/virgilinojuca/csl-abnt).
 - Port para Quarto: este repositório.
